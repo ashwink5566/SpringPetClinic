@@ -10,6 +10,24 @@ pipeline {
             }
             
         }
+       pipeline {
+    agent any
+    tools{
+        maven 'M1'
+    }
+    stages {
+        stage('Fetching') {
+            steps {
+                git branch:'main',url:"https://github.com/vignesh-vp/SpringPetClinic"
+            }
+            
+        }
+        stage('validate'){
+           steps{
+                bat 'mvn validate'
+          }}
+ 
+     
         stage('compile'){
             steps {
                 bat 'mvn compile'
@@ -21,6 +39,40 @@ pipeline {
                 bat 'mvn test'
             }
         }    
+        
+        stage('Package') {
+            steps {
+                bat 'mvn package'
+            }
+        }
+
+         stage('Integration Test') {
+            steps {
+                bat 'mvn integration-test'
+            }
+        }
+
+        stage('Verify') {
+            steps {
+                bat 'mvn verify'
+            }
+        }
+
+        stage('Install') {
+            steps {
+                bat 'mvn install'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                bat 'mvn deploy'
+            }
+        }
+        
+        
+    }
+}   
         
         
         
