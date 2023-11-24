@@ -10,18 +10,6 @@ pipeline {
             }
             
         }
-       pipeline {
-    agent any
-    tools{
-        maven 'M1'
-    }
-    stages {
-        stage('Fetching') {
-            steps {
-                git branch:'main',url:"https://github.com/vignesh-vp/SpringPetClinic"
-            }
-            
-        }
         stage('validate'){
            steps{
                 bat 'mvn validate'
